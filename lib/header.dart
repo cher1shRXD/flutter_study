@@ -1,45 +1,41 @@
 import 'package:flutter/cupertino.dart';
 
-class CustomHeader extends StatelessWidget implements ObstructingPreferredSizeWidget {
-  const CustomHeader({super.key});
+class Header extends StatefulWidget {
+  final String title;
+
+  const Header({super.key, required this.title});
 
   @override
-  Widget build(BuildContext context) {
-    return const CupertinoNavigationBar(
-      middle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16.0),
-            child: Text(
-              'GOaTRIP',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  Widget headerContainer(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          widget.title,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: CupertinoColors.black,
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Icon(
-              CupertinoIcons.bell,
-              size: 24,
-              color: CupertinoColors.black,
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: CupertinoColors.transparent,
-      border: Border(bottom: BorderSide.none),
+        ),
+        const Icon(
+          CupertinoIcons.bell,
+          size: 28,
+          color: CupertinoColors.black,
+        ),
+      ],
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
-
-  // Implement the shouldFullyObstruct method
-  @override
-  bool shouldFullyObstruct(BuildContext context) {
-    return true; // Adjust this based on your requirements
+  Widget build(BuildContext context) {
+    return Container(
+      color: CupertinoColors.white,
+      child: headerContainer(context),
+    );
   }
 }
